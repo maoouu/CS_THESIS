@@ -1,0 +1,3 @@
+pip install kaggle
+
+(read more at kaggle.com)

@@ -1,15 +1,19 @@
 # Create your own python environment
-python3 -m venv .env
-source .env/bin/activate (linux) 
-source ./env/Scripts/activate (windows)
+> python3 -m venv .env
+> source .env/bin/activate (linux) 
+> source ./env/Scripts/activate (windows)
 
-# Once created, install kaggle 
-pip install kaggle
+# Once created, install Poetry
+> python3 -m pip install poetry
 
+# After installing Poetry, run an install from the pyproject.tml
+> poetry install
+
+# You should be able to use kaggle now.
 # Login from website, and get API token from kaggle 
 # Save kaggle.json in C:\Users\<Windows-username>\.kaggle\
 # Once saved, download GTZAN dataset
-kaggle datasets download -d andradaolteanu/gtzan-dataset-music-genre-classification
+> kaggle datasets download -d andradaolteanu/gtzan-dataset-music-genre-classification
 
 # You should be good to go
 (read more at https://github.com/Kaggle/kaggle-api)

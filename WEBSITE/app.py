@@ -6,20 +6,13 @@
 
 import pickle
 
+from config import UPLOAD_FOLDER, MAX_FILE_SIZE_MEGABYTES
 from flask import Flask, render_template
-
-UPLOAD_FOLDER = 'uploads/'
-ALLOWED_EXTENSIONS = ['wav', 'mp3']
-
-# Check if filename is wav or mp3
-def is_allowed_file_extension(filename, ALLOWED_EXTENSIONS):
-    file_extension = filename.split('.')[-1].lower()
-    return file_extension in ALLOWED_EXTENSIONS
-
 
 # Initialize Flask App
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = MAX_FILE_SIZE_MEGABYTES
 model = pickle.load(open('model.pkl', 'rb'))
 
 

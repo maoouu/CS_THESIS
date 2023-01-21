@@ -30,3 +30,7 @@ def upload():
 @app.route('/classify', methods=['POST'])
 def classify():
     pass
+
+
+if __name__ == '__main__':
+    app.run(debug=True)

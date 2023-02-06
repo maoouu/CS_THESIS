@@ -1,9 +1,14 @@
-.venv
-.env
-Data
+# Files
 *.zip
 *.pyc
+*.lock
+
+# Virtual Environment
+.venv
+.env
+
+# Folders
 __pycache__/
 .pytest_cache/
-*.lock
-test/
+Data
+WEBSITE/test/

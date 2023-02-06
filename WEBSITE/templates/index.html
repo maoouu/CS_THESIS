@@ -1,51 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>MUSIC GENRE CLASSIFICATION</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/file.css') }}" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=" />
+    <meta name="viewport" content="width=device-width, initial-scale 1.0" />
+    <title>Music Genre Classification</title>
+    <link rel="icon" href="/static/images/logo.png" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles/file.css') }}"
+    />
   </head>
 
   <body>
-    <header>
-      <div class="main">
-        <div class="logo">
-          <img src="" />
+      <div class="big-wrapper">
+        <header>
+          <div class="container">
+            <div class="logo">
+              <img src="/static/images/logo.png" alt="Logo" />
+              <h3>Music Genre</h3>
+            </div>
+            <nav class="links">
+              <ul>
+                <li><a href="#">Pop</a></li>
+                <li><a href="#">Jazz</a></li>
+                <li><a href="#">Classic</a></li>
+                <li><a href="#" class="btn">Home</a></li>
+              </ul>
+            </nav>
+          </div>
+        </header>
+
+        <div class="showcase-area">
+          <div class="container">
+            <div class="left">
+              <div class="bigtitle">
+                <h1>Music Genre Classification is Here!</h1>
+                <h1>Start</h1>
+              </div>
+              <p class="text">
+                A music genre is a conventional category that identifies some
+                pieces of music as belonging to a shared tradition or set of
+                conventions. It is to be distinguished from musical form and
+                musical style, although in practice these terms are sometimes
+                used interchangeably.
+              </p>
+              <div class="upload">
+                <button type="button" class="btn-warning">
+                  <i class="">upload file</i>
+                  <input type="file" />
+                </button>
+              </div>
+            </div>
+
+            <div class="right">
+              <img
+                src="/static/images/img-person.png"
+                class="person"
+                alt="Person Image"
+              />
+            </div>
+          </div>
         </div>
-        <ul>
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="https://www.youtube.com/watch?v=w7dwcbiYGSE">POP</a></li>
-          <li>
-            <a href="https://www.youtube.com/watch?v=cJ_FWNwTD9k ">SOUL</a>
-          </li>
-          <li>
-            <a href="https://www.youtube.com/watch?v=YtfNtUFOX0I ">ROCK</a>
-          </li>
-          <li>
-            <a href="https://www.youtube.com/watch?v=5VB1RvyfISM ">CLASSIC</a>
-          </li>
-          <li>
-            <a href="https://www.youtube.com/watch?v=AbxB05ZNHEw ">JAZZ</a>
-          </li>
-          <li>
-            <a href="https://www.youtube.com/watch?v=HJarpumntkE ">REGGAE</a>
-          </li>
-        </ul>
-        <div class="title">
-          <h1>The Real Music Genre for</h1>
+
+        <div class="bottom-area">
+          <div class="container"></div>
         </div>
       </div>
-      <div class="animated-text">
-        <div class="line">POP</div>
-        <div class="line">SOUL</div>
-        <div class="line">ROCK</div>
-        <div class="line">CLASSIC</div>
-        <div class="line">JAZZ</div>
-        <div class="line">REGGAE</div>
-      </div>
-      <div class="upload">
-        <input type="file" />
-        <input type="submit" />
-      </div>
-    </header>
+
+    <!----- Javascript files-->
   </body>
 </html>

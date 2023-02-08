@@ -12,8 +12,8 @@ def download_ytvid_to_mp3(video_url, upload_path='../uploads/convert/'):
     - video_url (str): The url of the youtube video
     """
     video_info = youtube_dl.YoutubeDL().extract_info(url=video_url,download=False)
-    filename = f"{video_info['title']}.mp3"
-    outputname = f"{upload_path}{video_info['title']}_22050.mp3"
+    filename = f"{video_info['title']}.wav"
+    outputname = f"{upload_path}{video_info['title']}_22050.wav"
 
     options={
         'format':"bestaudio/best",

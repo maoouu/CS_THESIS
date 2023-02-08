@@ -2,7 +2,7 @@
 import pandas as pd
 import pickle
 
-from config import DATASET_FOLDER
+from config import DATASET_FILE
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.neighbors import KNeighborsClassifier
 
@@ -27,7 +27,7 @@ class KNeighborsClassifierModel:
 
 
 if __name__ == '__main__':
-    dataset = pd.read_csv(DATASET_FOLDER).iloc[:, 2:]
+    dataset = pd.read_csv(DATASET_FILE).iloc[:, 2:]
     y = dataset['label'] # target variable
     X = dataset.loc[:, dataset.columns != 'label'] # feature variable
     scaler = MinMaxScaler()

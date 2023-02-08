@@ -1,6 +1,6 @@
 # config.py
 
-DATASET_FOLDER = 'data/'
+DATASET_FILE = 'data/features_3_sec.csv'
 UPLOAD_FOLDER = 'uploads/'
 ALLOWED_EXTENSIONS = ['.wav', '.mp3']
 MAX_FILE_SIZE_MEGABYTES = 20

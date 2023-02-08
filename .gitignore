@@ -3,6 +3,7 @@
 *.pyc
 *.lock
 *.test.py
+*.pkl
 
 # Virtual Environment
 .venv

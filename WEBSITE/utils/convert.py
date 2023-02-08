@@ -1,11 +1,19 @@
+import os
 import youtube_dl
 import subprocess
 
-#For converting youtube vids to mp3
-def download_ytvid_to_mp3(video_url):
-    video_info = youtube_dl.YoutubeDL().extract_info(url = video_url,download=False)
+
+def download_ytvid_to_mp3(video_url, upload_path='../uploads/convert/'):
+    """
+    Downloads a youtube video and converts it into a mp3
+    file.
+
+    Parameters:
+    - video_url (str): The url of the youtube video
+    """
+    video_info = youtube_dl.YoutubeDL().extract_info(url=video_url,download=False)
     filename = f"{video_info['title']}.mp3"
-    outputname = f"{video_info['title']}_22050.mp3"
+    outputname = f"{upload_path}{video_info['title']}_22050.mp3"
 
     options={
         'format':"bestaudio/best",
@@ -13,7 +21,7 @@ def download_ytvid_to_mp3(video_url):
         'outtmpl':'%(title)s.%(ext)s',
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
-                'preferredcodec': 'mp3',
+                'preferredcodec': 'wav',
                 'preferredquality': '192',
         }],
     }
@@ -22,3 +30,4 @@ def download_ytvid_to_mp3(video_url):
         ydl.download([video_info['webpage_url']])
     subprocess.run(["ffmpeg", "-i", filename, "-ar", "22050", "-y", outputname])
     print("Download complete... {}".format(filename))
+    os.remove(filename)

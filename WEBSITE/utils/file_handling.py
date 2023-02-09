@@ -21,7 +21,7 @@ def file_is_allowed(filename) -> bool:
     return file_extension in ALLOWED_EXTENSIONS
 
 
-def convert_mp3_to_wav(filepath):
+def convert_mp3_to_wav(filepath) -> str:
     """
     This function takes a specified .mp3 file 
     and converts it to .wav. It returns the converted file path.

@@ -5,14 +5,16 @@
 # > flask --debug run
 
 import pickle
+import os
 
-from config import ALLOWED_EXTENSIONS, UPLOAD_FOLDER, MAX_FILE_SIZE_MEGABYTES, SECRET_KEY
-from flask import Flask, render_template
+from config import UPLOAD_FOLDER, MAX_FILE_SIZE_MEGABYTES, SECRET_KEY
+from flask import Flask, request, render_template, abort, redirect, url_for
+from werkzeug.utils import secure_filename
+from utils.file_handling import file_is_allowed
 
 # Initialize Flask App
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
-app.config['UPLOAD_EXTENSIONS'] = ALLOWED_EXTENSIONS
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = MAX_FILE_SIZE_MEGABYTES
 model = pickle.load(open('model.pkl', 'rb'))
@@ -25,7 +27,13 @@ def index():
 
 @app.route('/upload', methods=['POST'])
 def upload():
-    pass
+    uploaded_file = request.files['file']
+    filename = secure_filename(uploaded_file.filename)
+    if filename != '':
+        if not file_is_allowed(filename):
+            abort(400)
+        uploaded_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    return redirect(url_for('.classify', filename=filename))
 
 
 @app.route('/classify', methods=['POST'])

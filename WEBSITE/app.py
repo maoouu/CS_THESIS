@@ -6,12 +6,13 @@
 
 import pickle
 
-from config import UPLOAD_FOLDER, MAX_FILE_SIZE_MEGABYTES, SECRET_KEY
+from config import ALLOWED_EXTENSIONS, UPLOAD_FOLDER, MAX_FILE_SIZE_MEGABYTES, SECRET_KEY
 from flask import Flask, render_template
 
 # Initialize Flask App
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
+app.config['UPLOAD_EXTENSIONS'] = ALLOWED_EXTENSIONS
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = MAX_FILE_SIZE_MEGABYTES
 model = pickle.load(open('model.pkl', 'rb'))

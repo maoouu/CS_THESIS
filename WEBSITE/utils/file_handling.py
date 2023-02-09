@@ -24,13 +24,17 @@ def file_is_allowed(filename) -> bool:
 def convert_mp3_to_wav(filepath):
     """
     This function takes a specified .mp3 file 
-    and converts it to .wav.
+    and converts it to .wav. It returns the converted file path.
 
     Parameter:
     - filepath (str): The specified path to .mp3 file
+
+    Returns:
+    str: The converted file path
     """
     audio = AudioSegment.from_mp3(filepath)
     directory = os.path.dirname(filepath)
     wav_filename = os.path.basename(filepath).replace('.mp3', '.wav')
     output = os.path.join(directory, wav_filename)
     audio.export(output, format='wav')
+    return output

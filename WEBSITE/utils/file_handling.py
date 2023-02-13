@@ -37,4 +37,5 @@ def convert_mp3_to_wav(filepath) -> str:
     wav_filename = os.path.basename(filepath).replace('.mp3', '.wav')
     output = os.path.join(directory, wav_filename)
     audio.export(output, format='wav')
+    os.remove(filepath)
     return output

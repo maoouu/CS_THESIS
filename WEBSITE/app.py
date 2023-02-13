@@ -7,7 +7,7 @@
 import pickle
 import os
 
-from config import UPLOAD_FOLDER, MAX_FILE_SIZE_MEGABYTES, SECRET_KEY
+from config import UPLOAD_FOLDER, MAX_FILE_SIZE_IN_MEGABYTES, SECRET_KEY
 from flask import Flask, request, render_template, abort, redirect, url_for
 from werkzeug.utils import secure_filename
 from utils.file_handling import file_is_allowed
@@ -16,7 +16,7 @@ from utils.file_handling import file_is_allowed
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['MAX_CONTENT_LENGTH'] = MAX_FILE_SIZE_MEGABYTES
+app.config['MAX_CONTENT_LENGTH'] = MAX_FILE_SIZE_IN_MEGABYTES * 1000 * 1000
 model = pickle.load(open('model.pkl', 'rb'))
 
 
@@ -36,7 +36,7 @@ def upload():
     return redirect(url_for('.classify', filename=filename))
 
 
-@app.route('/classify', methods=['POST'])
+@app.route('/classify', methods=['GET', 'POST'])
 def classify():
     pass
 

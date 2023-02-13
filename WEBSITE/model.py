@@ -23,7 +23,6 @@ class KNeighborsClassifierModel:
 
     def save(self, file_path):
         pickle.dump(self.model, open(file_path, 'wb'))
-    
 
 
 if __name__ == '__main__':

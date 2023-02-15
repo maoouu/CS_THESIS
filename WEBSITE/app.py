@@ -50,7 +50,7 @@ def preprocess():
 
 @app.route('/classify', methods=['GET', 'POST'])
 def classify():
-    return 'classify'
+    pass
     
 
 if __name__ == '__main__':

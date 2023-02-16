@@ -58,13 +58,13 @@ def classify():
         abort('404')
     
     audio_chunks = split_audio_chunks(file)
-    result = []
+    predictions = []
     for chunks in audio_chunks:
         feature = extract_features(chunks)
         feature = pd.DataFrame(feature, index=[0])
-        result.append(model.predict(feature)[0])
-
-    result = [t[0] for t in Counter(result).most_common(3)]
+        predictions.append(model.predict(feature)[0])
+    predictions = [f"{i[0]} ({round(i[1] / len(predictions) * 100)}%)" for i in Counter(predictions).most_common(3)]
+    result = ", ".join(predictions)
     return render_template('index.html', result=str(result))
     
 

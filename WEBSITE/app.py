@@ -4,13 +4,16 @@
 # Running Flask in Testing
 # > flask --debug run
 
+import pandas as pd
 import pickle
 import os
 
+from collections import Counter
 from config import UPLOAD_FOLDER, MAX_FILE_SIZE_IN_MEGABYTES, SECRET_KEY
+from features import extract_features
 from flask import Flask, request, render_template, abort, redirect, url_for
 from werkzeug.utils import secure_filename
-from utils.file_handling import file_is_allowed, convert_mp3_to_wav
+from utils.file_handling import file_is_allowed, convert_mp3_to_wav, split_audio_chunks
 
 # Initialize Flask App
 app = Flask(__name__)
@@ -50,7 +53,19 @@ def preprocess():
 
 @app.route('/classify', methods=['GET', 'POST'])
 def classify():
-    pass
+    file = request.args.get('file', None)
+    if file is None:
+        abort('404')
+    
+    audio_chunks = split_audio_chunks(file)
+    result = []
+    for chunks in audio_chunks:
+        feature = extract_features(chunks)
+        feature = pd.DataFrame(feature, index=[0])
+        result.append(model.predict(feature)[0])
+
+    result = [t[0] for t in Counter(result).most_common(3)]
+    return render_template('index.html', result=str(result))
     
 
 if __name__ == '__main__':

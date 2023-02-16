@@ -2,7 +2,7 @@ import librosa
 import numpy as np
 
 
-def extract_features(file) -> dict:
+def extract_features(audio, sample_rate=22050) -> dict:
     """
     Extract features from audio file using Librosa library.
 
@@ -13,9 +13,9 @@ def extract_features(file) -> dict:
     Returns:
     features (dict): a dictionary of extracted features
     """
-    audio, sample_rate = librosa.load(file, sr=22050)
+    # audio, sample_rate = librosa.load(file, sr=22050)
 
-     # Extract Chroma STFT
+    # Extract Chroma STFT
     chroma_stft = librosa.feature.chroma_stft(audio, sr=sample_rate)
 
     # Extract Root Mean Squared (RMS) Energy
@@ -67,8 +67,8 @@ def extract_features(file) -> dict:
 
     # Append the mean and var of 20 MFCC coefficients
     for i in range(20):
-        features[f"mfcc{i + 1}_mean"] = np.mean(mfcc[i])
-        features[f"mfcc{i + 1}_var"] = np.var(mfcc[i])
+        features[f"mfcc{i + 1}_mean"] = np.mean(mfcc[i].T, axis=0)
+        features[f"mfcc{i + 1}_var"] = np.var(mfcc[i].T, axis=0)
 
 
     return features

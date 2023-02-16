@@ -8,7 +8,7 @@ from sklearn.neighbors import KNeighborsClassifier
 
 
 class KNeighborsClassifierModel:
-    def __init__(self, n_neighbors=5, weights='distance', scaler=None) -> None:
+    def __init__(self, n_neighbors=3, weights='distance', scaler=None) -> None:
         self.n_neighbors = n_neighbors
         self.weights = weights
         self.scaler = scaler

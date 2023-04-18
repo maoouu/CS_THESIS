@@ -1,8 +1,4 @@
 # app.py
-## Final Project Back-end belongs here
-
-# Running Flask in Testing
-# > flask --debug run
 
 import pandas as pd
 import pickle
@@ -63,8 +59,7 @@ def classify():
         feature = extract_features(chunks)
         feature = pd.DataFrame(feature, index=[0])
         predictions.append(model.predict(feature)[0])
-    predictions = [f"{i[0]} ({round(i[1] / len(predictions) * 100)}%)" for i in Counter(predictions).most_common(3)]
-    result = ", ".join(predictions)
+    result = Counter(predictions).most_common(1)[0][0]
     return render_template('index.html', result=str(result))
     
 

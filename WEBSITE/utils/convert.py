@@ -31,3 +31,6 @@ def download_ytvid_to_mp3(video_url, upload_path='../uploads/convert/'):
     subprocess.run(["ffmpeg", "-i", filename, "-ar", "22050", "-y", outputname])
     print("Download complete... {}".format(filename))
     os.remove(filename)
+
+if __name__ == '__main__':
+    download_ytvid_to_mp3(video_url="https://www.youtube.com/watch?v=f4YWrr2gmAs", upload_path='../uploads/convert/')

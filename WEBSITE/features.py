@@ -16,34 +16,34 @@ def extract_features(audio, sample_rate=22050) -> dict:
     # audio, sample_rate = librosa.load(file, sr=22050)
 
     # Extract Chroma STFT
-    chroma_stft = librosa.feature.chroma_stft(audio, sr=sample_rate)
+    chroma_stft = librosa.feature.chroma_stft(y=audio, sr=sample_rate)
 
     # Extract Root Mean Squared (RMS) Energy
-    rms = librosa.feature.rms(audio)
+    rms = librosa.feature.rms(y=audio)
 
     # Extract Spectral Centroid
-    spectral_centroid = librosa.feature.spectral_centroid(audio, sr=sample_rate)
+    spectral_centroid = librosa.feature.spectral_centroid(y=audio, sr=sample_rate)
 
     # Extract Spectral Bandwidth
-    spectral_bandwidth = librosa.feature.spectral_bandwidth(audio, sr=sample_rate)
+    spectral_bandwidth = librosa.feature.spectral_bandwidth(y=audio, sr=sample_rate)
 
     # Extract Rolloff Frequency
-    rolloff = librosa.feature.spectral_rolloff(audio, sr=sample_rate)
+    rolloff = librosa.feature.spectral_rolloff(y=audio, sr=sample_rate)
 
     # Extract Zero-Crossing Rate
-    zero_crossing_rate = librosa.feature.zero_crossing_rate(audio)
+    zero_crossing_rate = librosa.feature.zero_crossing_rate(y=audio)
 
     # Extract Harmonic Elements
-    harmony = librosa.effects.harmonic(audio)
+    harmony = librosa.effects.harmonic(y=audio)
 
     # Extract Percussive Elements
-    perceptr = librosa.effects.percussive(audio)
+    perceptr = librosa.effects.percussive(y=audio)
 
     # Extract Tempo
-    tempo = librosa.beat.tempo(audio, sr=sample_rate)
+    tempo = librosa.beat.tempo(y=audio, sr=sample_rate)
 
     # Extract Mel-Frequency Cepstral Coefficients (mfcc)
-    mfcc = librosa.feature.mfcc(audio, sr=sample_rate)
+    mfcc = librosa.feature.mfcc(y=audio, sr=sample_rate)
 
     features = {
         'chroma_stft_mean': np.mean(chroma_stft),

@@ -33,23 +33,25 @@ def upload():
         if not file_is_allowed(filename):
             abort(400)
         uploaded_file.save(file)
-    return redirect(url_for('.preprocess', file=file))
+    return redirect(url_for('.preprocess', file=file, filename=filename))
 
 
 @app.route('/preprocess', methods=['GET', 'POST'])
 def preprocess():
     file = request.args.get('file', None)
+    filename = request.args.get('filename', 'N/A')
     if file is None:
         abort('404')
     if os.path.splitext(file)[1] == '.mp3':
         file = convert_mp3_to_wav(file)
-        return redirect(url_for('.classify', file=file))
-    return redirect(url_for('.classify', file=file))
+        return redirect(url_for('.classify', file=file, filename=filename))
+    return redirect(url_for('.classify', file=file, filename=filename))
 
 
 @app.route('/classify', methods=['GET', 'POST'])
 def classify():
     file = request.args.get('file', None)
+    filename = request.args.get('filename', 'N/A')
     if file is None:
         abort('404')
     
@@ -60,7 +62,7 @@ def classify():
         feature = pd.DataFrame(feature, index=[0])
         predictions.append(model.predict(feature)[0])
     result = Counter(predictions).most_common(1)[0][0]
-    return render_template('index.html', result=str(result))
+    return render_template('index.html', result=str(result), filename=str(filename)[:-4])
     
 
 if __name__ == '__main__':

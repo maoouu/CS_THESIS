@@ -16,16 +16,16 @@
       <div class="big-wrapper">
         <header>
           <div class="container">
+            <a href="http://127.0.0.1:5000">
             <div class="logo">
               <img src="/static/images/logo.png" alt="Logo" />
               <h3>Music Genre</h3>
             </div>
+            </a>
             <nav class="links">
               <ul>
-                <li><a href="#">Pop</a></li>
-                <li><a href="#">Jazz</a></li>
-                <li><a href="#">Classic</a></li>
-                <li><a href="#" class="btn">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="http://127.0.0.1:5000" class="btn">Home</a></li>
               </ul>
             </nav>
           </div>
@@ -36,7 +36,6 @@
             <div class="left">
               <div class="bigtitle">
                 <h1>Music Genre Classification is Here!</h1>
-                <h1>Start</h1>
               </div>
               <p class="text">
                 A music genre is a conventional category that identifies some
@@ -53,6 +52,7 @@
               </div>
 
               {% if result %}
+              <p>Song: {{ filename }}</p>
               <p>Results: {{ result }}</p>
               {% endif %}
             </div>

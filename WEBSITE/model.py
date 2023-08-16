@@ -8,7 +8,7 @@ from sklearn.neighbors import KNeighborsClassifier
 
 
 class KNeighborsClassifierModel:
-    def __init__(self, n_neighbors=45, weights='distance', scaler=None) -> None:
+    def __init__(self, n_neighbors=41, weights='distance', scaler=None) -> None:
         self.n_neighbors = n_neighbors
         self.weights = weights
         self.scaler = scaler
@@ -28,7 +28,7 @@ class KNeighborsClassifierModel:
 if __name__ == '__main__':
     dataset = pd.read_csv(DATASET_FILE).iloc[:, 2:]
     y = dataset['label'] # target variable
-    X = dataset.loc[:, dataset.columns != 'label'] # feature variable
+    X = dataset.iloc[:, :-1] # feature variable
     # scaler = MinMaxScaler()
     model = KNeighborsClassifierModel()
     model.fit(X, y)

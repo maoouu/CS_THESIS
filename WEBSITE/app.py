@@ -29,12 +29,12 @@ def index():
 def upload():
     if request.method == 'POST':
         input_file = request.form.get('input')
-
+        filename = get_title(input_file)
         if input_file and input_file.startswith("https://www.youtube.com/"):
             # Download and convert YouTube audio to WAV
             audio_file = download_youtube_audio(input_file)
             wav_file = convert_mp3_to_wav(audio_file)
-            return redirect(url_for('.classify', file=wav_file, filename='Unknown'))
+            return redirect(url_for('.classify', file=wav_file, filename=filename))
 
         uploaded_file = request.files['file']
         filename = secure_filename(uploaded_file.filename)
@@ -78,6 +78,10 @@ def classify():
         predictions.append(model.predict(feature)[0])
     result = Counter(predictions).most_common(1)[0][0]
     return render_template('index.html', result=str(result), filename=str(filename))
+
+@app.route('/pdf_page', methods=['GET'])
+def pdf_page():
+    return render_template('pdf_page.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

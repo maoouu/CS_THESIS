@@ -101,27 +101,27 @@ def classify():
 def pdf_page():
     return render_template('pdf_page.html')
 
-# @app.route('/feedback', methods=['POST'])
-# def save_feedback():
-#     feedback = request.form.get('feedback')
-#     correct_genre = request.form.get('correct_genre')
-#     song_name = request.form.get('filename')
-#     predicted_genre = request.form.get('result')  # Get the predicted genre from the form
-# 
-#     if feedback == 'yes':
-#         genre = correct_genre if correct_genre else predicted_genre
-#     elif feedback == 'no' and correct_genre:
-#         genre = correct_genre
-#     else:
-#         return "Invalid feedback or genre."
-# 
-#     feedback_data = f"Song: {song_name}\nGenre: {genre}\n\n"
-# 
-#     # Save the feedback to a .txt file
-#     with open('feedback.txt', 'a') as file:
-#         file.write(feedback_data)
-# 
-#     return redirect(url_for('index'))
+@app.route('/feedback', methods=['POST'])
+def save_feedback():
+    feedback = request.form.get('feedback')
+    correct_genre = request.form.get('correct_genre')
+    song_name = request.form.get('filename')
+    predicted_genre = request.form.get('result')  # Get the predicted genre from the form
+
+    if feedback == 'yes':
+        genre = predicted_genre if correct_genre else predicted_genre
+    elif feedback == 'no' and correct_genre:
+        genre = correct_genre
+    else:
+        return "Invalid feedback or genre."
+
+    feedback_data = f"Song: {song_name}\nGenre: {genre}\n\n"
+
+    # Save the feedback to a .txt file
+    with open('feedback.txt', 'a') as file:
+        file.write(feedback_data)
+
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(debug=True)

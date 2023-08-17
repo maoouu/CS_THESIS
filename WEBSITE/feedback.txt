@@ -17,3 +17,9 @@ Genre: Blues
 Song: ONLY
 Genre: Pop
 
+Song: ONLY
+Genre: jazz
+
+Song: Finesse (remix)
+Genre: Pop
+

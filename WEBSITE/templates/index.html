@@ -56,6 +56,9 @@
       <p>Results: {{ result }}</p>
 
       <form action="/feedback" method="post" id="feedbackForm">
+      <input type="hidden" name="filename" value="{{ filename }}">
+      <input type="hidden" name="result" value="{{ result }}">
+
         <p>Is the genre classification correct?</p>
         <label><input type="radio" name="feedback" value="yes" onchange="showCorrectGenreDropdown()"> Yes</label>
         <label><input type="radio" name="feedback" value="no" onchange="showCorrectGenreDropdown()"> No</label>

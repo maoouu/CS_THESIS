@@ -12,19 +12,6 @@
   <!-- icons-->
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-  <script>
-    function showCorrectGenreDropdown() {
-      const feedbackRadioNo = document.querySelector('input[name="feedback"][value="no"]');
-      const correctGenreDropdown = document.getElementById('correctGenreDropdown');
-
-      if (feedbackRadioNo.checked) {
-        correctGenreDropdown.style.display = 'block';
-      } else {
-        correctGenreDropdown.style.display = 'none';
-      }
-    }
-  </script>
-
 </head>
 
 <body>
@@ -261,7 +248,22 @@
 
   <!-- js-->
 
+<!-- Feedback Dropdown Script -->
+  <script>
+    function showCorrectGenreDropdown() {
+      const feedbackRadioNo = document.querySelector('input[name="feedback"][value="no"]');
+      const correctGenreDropdown = document.getElementById('correctGenreDropdown');
+
+      if (feedbackRadioNo.checked) {
+        correctGenreDropdown.style.display = 'block';
+      } else {
+        correctGenreDropdown.style.display = 'none';
+      }
+    }
+  </script>
+
   <script src="main.js"></script>
+
 </body>
 
 </html>

@@ -1,77 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=" />
-    <meta name="viewport" content="width=device-width, initial-scale 1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale"
     <title>Music Genre Classification</title>
-    <link rel="icon" href="/static/images/logo.png" />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='styles/file.css') }}"
-    />
-  </head>
+    <!-- Link to Css-->
 
-  <body>
-      <div class="big-wrapper">
-        <header>
-          <div class="container">
-            <a href="http://127.0.0.1:5000">
-            <div class="logo">
-              <img src="/static/images/logo.png" alt="Logo" />
-              <h3>Music Genre</h3>
-            </div>
-            </a>
-            <nav class="links">
-              <ul>
-                <li><a href="#">About</a></li>
-                <li><a href="http://127.0.0.1:5000" class="btn">Home</a></li>
-              </ul>
-            </nav>
-          </div>
-        </header>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/stylesheet.css') }}">
 
-        <div class="showcase-area">
-          <div class="container">
-            <div class="left">
-              <div class="bigtitle">
-                <h1>Music Genre Classification is Here!</h1>
-              </div>
-              <p class="text">
-                A music genre is a conventional category that identifies some
-                pieces of music as belonging to a shared tradition or set of
-                conventions. It is to be distinguished from musical form and
-                musical style, although in practice these terms are sometimes
-                used interchangeably.
-              </p>
-              <div class="upload">
-                <form action="/upload" method="post" enctype="multipart/form-data">
-                  <input type="file" name="file" id="" accept=".wav,.mp3" required>
-                  <button type="submit" class="btn-warning"><i>upload file</i></button>
-                </form>
-              </div>
+    <!-- icons-->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-              {% if result %}
-              <p>Song: {{ filename }}</p>
-              <p>Results: {{ result }}</p>
-              {% endif %}
-            </div>
+    <script>
+      function showCorrectGenreDropdown() {
+          const feedbackRadioNo = document.querySelector('input[name="feedback"][value="no"]');
+          const correctGenreDropdown = document.getElementById('correctGenreDropdown');
+          
+          if (feedbackRadioNo.checked) {
+              correctGenreDropdown.style.display = 'block';
+          } else {
+              correctGenreDropdown.style.display = 'none';
+          }
+      }
+  </script>
 
-            <div class="right">
-              <img
-                src="/static/images/img-person.png"
-                class="person"
-                alt="Person Image"
-              />
-            </div>
-          </div>
-        </div>
+</head>
+<body>
+                       <!-- navbar-->
+                <header>
+                  <a href="http://127.0.0.1:5000" class="logo"><img src="/static/images/logo.png" alt=""></a>
+                  <div class="bx bx-menu" id="menu-icon"></div>
 
-        <div class="bottom-area">
-          <div class="container"></div>
-        </div>
-      </div>
+                  <ul class="navbar">
+                    <li><a href="http://127.0.0.1:5000">Home</a></li>
+                    <li><a href="#history">History</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contacts">Contacts</a></li>
+                  </ul>
+  </header>
 
-    <!----- Javascript files-->
-  </body>
+<!-- home-->
+          <section class="home" id="home">
+                <div class="home-text">
+                  <span>Welcome to Music Automated Genre Classification!</span>
+                    <h1>Genre Classifier using K Nearest Neighbour</h1>
+                    <h2>Let's try to classify <br> tap button</h2>
+                    <div class="home-upload">
+                      <form action="/upload" method="post" enctype="multipart/form-data">
+                        <input type="file" name="file" id="" accept=".wav,.mp3" required>
+                        <button type="submit" class="btn-warning"><i>Check genre</i></button>
+                    </form>
+                    <hr>
+                    <hr>
+ 
+                    <div class="home-upload">
+                      <form action="/upload" method="post" enctype="multipart/form-data">
+                          <input type="text" name="input" placeholder="Paste YouTube link here">
+                          <button type="submit" class="btn-warning"><i>Check genre</i></button>
+                      </form>
+                  </div>
+
+                    </div>
+                  
+                  <!-- Display classification results -->
+                  {% if result %}
+                      <p>Song: {{ filename }}</p>
+                      <p>Results: {{ result }}</p>
+
+                    <form action="/feedback" method="post" id="feedbackForm">
+                    <p>Is the genre classification correct?</p>
+                    <label><input type="radio" name="feedback" value="yes" onchange="showCorrectGenreDropdown()"> Yes</label>
+                    <label><input type="radio" name="feedback" value="no" onchange="showCorrectGenreDropdown()"> No</label>
+
+                    <div id="correctGenreDropdown" style="display: none;">
+                        <p>Choose the correct genre:</p>
+                        <select name="correct_genre">
+                        <option value="Blues">Blues</option>
+                        <option value="Classical">Classical</option>
+                        <option value="Country">Country</option>
+                        <option value="Disco">Disco</option>
+                        <option value="Hiphop">Hiphop</option>
+                        <option value="Jazz">Jazz</option>
+                        <option value="Metal">Metal</option>
+                        <option value="Pop">Pop</option>
+                        <option value="Reggae">Reggae</option>
+                        <option value="Rock">Rock</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn">Submit Feedback</button>
+                    </form>
+                    <br>
+                    <a href="http://127.0.0.1:5000" class="btn">Convert Again!</a>
+                    {% endif %}
+
+                  </div>
+
+                  <div class = "home-img">
+                  <img src="/static/images/home1.png" alt="">
+                  </div>
+                      </section>
+                      <section>
+                      <div class="heading">
+                          <span>History</span>
+                          <h1>A Brief History</h1>
+                          <p>A music genre is a conventional category that identifies some pieces of music as belonging to a shared tradition or set of conventions. It is to be distinguished from musical form and musical style, although in practice these terms are sometimes used interchangeably. 
+                            Music can be divided into genres in varying ways, such as popular music and art music, or religious music and secular music. The artistic nature of music means that these classifications are often subjective and controversial, and some genres may overlap.
+                            </p>
+                      </div>
+                      <div class="history">
+                        <div class="box">
+                          <div class="box-img">
+                            <img src="/static/images/Sound Waves.png" alt="">
+                          </div>
+                              <h2>Classical</h2>
+                              <a href="https://fcsymphony.org/uncategorized/a-brief-history-of-classical-music/#:~:text=The%20Classical%20era%20is%20the,is%20still%20written%20in%20today." class="btn">Information</a><br>
+                              <a href="https://www.google.com/search?q=classical+nonstop&rlz=1C1CHBF_enPH917PH917&oq=classical+nonstop&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIICAEQABgNGB4yCAgCEAAYDRgeMggIAxAAGBYYHjIICAQQABgWGB4yCggFEAAYCBgNGB4yCggGEAAYCBgNGB4yCggHEAAYCBgNGB4yCggIEAAYCBgNGB4yCggJEAAYhgMYigXSAQgxOTUyajBqNKgCALACAA&sourceid=chrome&ie=UTF-8#fpstate=ive&vld=cid:56cbf24b,vid:lvHglyR_o_0" class="btn">Playlist</a>
+                        </div>
+          
+
+
+                      <div class="box">
+                        <div class="box-img">
+                          <img src="/static/images/Cassette Tape.png" alt="">
+                        </div>
+                            <h2>Pop</h2>
+                            <a href="https://www.calypsoroom.com/Brief-History-of-Pop-Music.html#:~:text=Pop%20music%20originated%20in%20the%20United%20States%20and%20Great%20Britain,lyrics%2C%20and%20simple%20musical%20arrangements." class="btn">Information</a><br>
+                            <a href="https://www.youtube.com/watch?v=1YRJW7szDNc&ab_channel=IvoryMusic%26Video%2CInc." class="btn">Playlist</a>
+                 
+                    </div>
+
+
+                    <div class="box">
+                      <div class="box-img">
+                        <img src="/static/images/Music Notes.png" alt="">
+                      </div>
+                          <h2>Hiphop</h2>
+                          <a href="https://www.masterclass.com/articles/hip-hop-guide" class="btn">Information</a><br>
+                          <a href="https://www.google.com/search?q=hiphop+music&sca_esv=557724926&rlz=1C1CHBF_enPH917PH917&sxsrf=AB5stBjvCu2B-6cNOuVhhPDjPl-0OqG8Ag%3A1692258483612&ei=s9DdZPTyJM-e4-EP5dOZyAs&oq=hiphop+musi&gs_lp=Egxnd3Mtd2l6LXNlcnAiC2hpcGhvcCBtdXNpKgIIADIIEAAYigUYkQIyBRAAGIAEMgUQABiABDIIEAAYigUYkQIyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIKEAAYgAQYFBiHAkirG1DkBVjrC3ABeAGQAQCYAY4BoAGCBaoBAzAuNbgBAcgBAPgBAcICChAAGEcY1gQYsAPCAgoQABiKBRiwAxhDwgILEAAYgAQYsQMYgwHCAg0QABiABBgUGIcCGLEDwgIKEC4Y1AIYgAQYCuIDBBgAIEGIBgGQBgo&sclient=gws-wiz-serp#fpstate=ive&vld=cid:a8230364,vid:4t-BLUi3eAI" class="btn">Playlist</a>
+                    </div>
+
+                    
+                    <div class="box">
+                      <div class="box-img">
+                        <img src="/static/images/Music Notes.png" alt="">
+                      </div>
+                          <h2>Jazz</h2>
+                          <a href="#" class="btn">Information</a><br>
+                          <a href="https://www.youtube.com/watch?v=b4Cr62Q-oss&ab_channel=CafeMusic" class="btn">Playlist</a>
+                    </div>
+
+                    
+                    <div class="box">
+                      <div class="box-img">
+                        <img src="/static/images/Music Notes.png" alt="">
+                      </div>
+                          <h2>Country</h2>
+                          <a href="#" class="btn">Information</a><br>
+                          <a href="https://www.youtube.com/watch?v=96NsD-UKpi4&ab_channel=CountryGreatestHits" class="btn">Playlist</a>
+                    </div>
+
+                    
+                    <div class="box">
+                      <div class="box-img">
+                        <img src="/static/images/Music Notes.png" alt="">
+                      </div>
+                          <h2>Disco</h2>
+                          <a href="#" class="btn">Information</a><br>
+                          <a href="https://www.youtube.com/watch?v=ial7u1aXud4&ab_channel=OldiesButGoldMusic" class="btn">Playlist</a>
+                    </div>
+
+                    
+                    <div class="box">
+                      <div class="box-img">
+                        <img src="/static/images/Music Notes.png" alt="">
+                      </div>
+                          <h2>Rock</h2>
+                          <a href="#" class="btn">Information</a><br>
+                          <a href="https://www.youtube.com/watch?v=4no36RMWFME&ab_channel=ClassicRockMusic" class="btn">Playlist</a>
+                    </div>
+
+                    
+                    <div class="box">
+                      <div class="box-img">
+                        <img src="/static/images/Music Notes.png" alt="">
+                      </div>
+                          <h2>Metal</h2>
+                          <a href="#" class="btn">Information</a><br>
+                          <a href="https://www.youtube.com/watch?v=-qEla3eow3c&ab_channel=RockCollection" class="btn">Playlist</a>
+                    </div>
+
+                    
+                    <div class="box">
+                      <div class="box-img">
+                        <img src="/static/images/Music Notes.png" alt="">
+                      </div>
+                          <h2>Reggae</h2>
+                          <a href="#" class="btn">Information</a><br>
+                          <a href="https://www.youtube.com/watch?v=zuVFq9x_QCA&ab_channel=REGGAEMIX" class="btn">Playlist</a>
+                    </div>
+
+                    <div class="box">
+                      <div class="box-img">
+                        <img src="/static/images/Music Notes.png" alt="">
+                      </div>
+                          <h2>Blues</h2>
+                          <a href="#" class="btn">Information</a><br>
+                          <a href="https://www.youtube.com/watch?v=XsVtSPgaRzI&ab_channel=BluesMusicCollections" class="btn">Playlist</a>
+                  </div>
+                  </section>
+                  <!--about-->
+              <section class="about" id="about">
+                <div class="heading">
+                <span> Try it Now </span>
+                <h1>....</h1>
+              
+                </div>
+                <div class="container">
+                <div class="about-img">
+                  <img src="/static/images/Headphone.png" alt="">
+                </div>
+                <div class="about-text">
+                  <h2>This is the time to try the Web-based Music Genre Classfication </h2>
+                  <p>Introducing an automated web tool that instantly identifies music genres. Dive into the world of music history and groove to endless genre playlists, all in one place. Experience music like never before!
+                  </p>
+                  <a href="http://127.0.0.1:5000" class="btn">Try it now</a>
+                </div>
+
+                </div>
+              </section>
+              <!--contact-->
+              <section class="contact" id="contact">
+                <div class="social">
+                  <a href="#"><i class='bx bxl-facebook'></i></a>
+                  <a href="#"><i class='bx bxl-twitter'></i></a>
+                  <a href="#"><i class='bx bxl-instagram'></i></a>
+                  <a href="#"><i class='bx bxl-youtube'></i></a>
+                </div>
+                <div class="links">
+                  <a href="#">Terms of use</a>
+                  <a href="#">Researchers</a>
+
+          
+        
+                </div>
+                <p>&#169;Genre Automated All Right Reserved</p>
+              </section>
+
+
+   
+                 <!-- js-->
+        
+      <script src="main.js"></script>
+</body>
 </html>

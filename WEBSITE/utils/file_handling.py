@@ -1,7 +1,7 @@
 # file_handling.py
 import librosa
 import os
-from config import ALLOWED_EXTENSIONS
+from config import ALLOWED_EXTENSIONS, UPLOAD_FOLDER
 from pydub import AudioSegment
 
 
@@ -22,24 +22,31 @@ def file_is_allowed(filename) -> bool:
     return file_extension in ALLOWED_EXTENSIONS
 
 
-def convert_mp3_to_wav(filepath) -> str:
-    """
-    This function takes a specified .mp3 file 
-    and converts it to .wav. It returns the converted file path.
+#def convert_mp3_to_wav(filepath) -> str:
+#    """
+#    This function takes a specified .mp3 file 
+#    and converts it to .wav. It returns the converted file path.
+#
+#    Parameter:
+#    - filepath (str): The specified path to .mp3 file
+#
+#    Returns:
+#    str: The converted file path
+#    """
+#    audio = AudioSegment.from_mp3(filepath)
+#    directory = os.path.dirname(filepath)
+#    wav_filename = os.path.basename(filepath).replace('.mp3', '.wav')
+#    output = os.path.join(directory, wav_filename)
+#    audio.export(output, format='wav')
+#    os.remove(filepath)
+#    return output
 
-    Parameter:
-    - filepath (str): The specified path to .mp3 file
-
-    Returns:
-    str: The converted file path
-    """
-    audio = AudioSegment.from_mp3(filepath)
-    directory = os.path.dirname(filepath)
-    wav_filename = os.path.basename(filepath).replace('.mp3', '.wav')
-    output = os.path.join(directory, wav_filename)
-    audio.export(output, format='wav')
-    os.remove(filepath)
-    return output
+def convert_mp3_to_wav(input_file):
+    # Convert downloaded audio to .wav format using ffmpeg
+    mp3_filename = input_file
+    wav_filename = os.path.join(UPLOAD_FOLDER, os.path.splitext(os.path.basename(mp3_filename))[0] + '.wav')
+    os.system(f'ffmpeg -i "{mp3_filename}" -acodec pcm_s16le -ar 22050 "{wav_filename}" -y')
+    return wav_filename
 
 
 def split_audio_chunks(filepath, window_size=3):

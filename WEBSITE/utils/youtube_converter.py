@@ -19,4 +19,4 @@ def download_youtube_audio(link):
 
 
 def get_title(link):
-    return pytube.Youtube(link).title
+    return pytube.YouTube(link).title

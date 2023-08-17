@@ -63,6 +63,22 @@ def preprocess():
     return redirect(url_for('.classify', file=file, filename=filename))
 
 
+# @app.route('/classify', methods=['GET', 'POST'])
+# def classify():
+#     file = request.args.get('file', None)
+#     filename = request.args.get('filename', 'N/A')
+#     if file is None:
+#         abort('404')
+#     
+#     audio_chunks = split_audio_chunks(file)
+#     predictions = []
+#     for chunks in audio_chunks:
+#         feature = extract_features(chunks)
+#         feature = pd.DataFrame(feature, index=[0])
+#         predictions.append(model.predict(feature)[0])
+#     result = Counter(predictions).most_common(1)[0][0]
+#     return render_template('index.html', result=str(result), filename=str(filename))
+
 @app.route('/classify', methods=['GET', 'POST'])
 def classify():
     file = request.args.get('file', None)
@@ -77,11 +93,35 @@ def classify():
         feature = pd.DataFrame(feature, index=[0])
         predictions.append(model.predict(feature)[0])
     result = Counter(predictions).most_common(1)[0][0]
-    return render_template('index.html', result=str(result), filename=str(filename))
+    
+    return render_template('index.html', result=result, filename=filename)
+
 
 @app.route('/pdf_page', methods=['GET'])
 def pdf_page():
     return render_template('pdf_page.html')
+
+# @app.route('/feedback', methods=['POST'])
+# def save_feedback():
+#     feedback = request.form.get('feedback')
+#     correct_genre = request.form.get('correct_genre')
+#     song_name = request.form.get('filename')
+#     predicted_genre = request.form.get('result')  # Get the predicted genre from the form
+# 
+#     if feedback == 'yes':
+#         genre = correct_genre if correct_genre else predicted_genre
+#     elif feedback == 'no' and correct_genre:
+#         genre = correct_genre
+#     else:
+#         return "Invalid feedback or genre."
+# 
+#     feedback_data = f"Song: {song_name}\nGenre: {genre}\n\n"
+# 
+#     # Save the feedback to a .txt file
+#     with open('feedback.txt', 'a') as file:
+#         file.write(feedback_data)
+# 
+#     return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(debug=True)

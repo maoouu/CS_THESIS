@@ -29,9 +29,9 @@ def index():
 def upload():
     if request.method == 'POST':
         input_file = request.form.get('input')
-        filename = get_title(input_file)
         if input_file and input_file.startswith("https://www.youtube.com/"):
             # Download and convert YouTube audio to WAV
+            filename = get_title(input_file)
             audio_file = download_youtube_audio(input_file)
             wav_file = convert_mp3_to_wav(audio_file)
             return redirect(url_for('.classify', file=wav_file, filename=filename))
@@ -48,8 +48,6 @@ def upload():
             return redirect(url_for('.classify', file=wav_file, filename=filename[:-4]))
 
     return render_template('index.html')  # Render the upload form if it's a GET request
-
-
 
 @app.route('/preprocess', methods=['GET', 'POST'])
 def preprocess():
